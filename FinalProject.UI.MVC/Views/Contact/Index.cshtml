@@ -1,0 +1,93 @@
+﻿@model FinalProject.UI.MVC.Models.ContactViewModel
+
+@{
+    ViewBag.Title = "Contact";
+}
+<!--== Page Title Area Start ==-->
+<section id="page-title-area" class="section-padding overlay">
+    <div class="container">
+        <div class="row">
+            <!-- Page Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>Contact Us</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <!-- Page Title End -->
+        </div>
+    </div>
+</section>
+<!--== Page Title Area End ==-->
+@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<!--== Contact Page Area Start ==-->
+<div class="contact-page-wrao section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 m-auto">
+                <div class="contact-form">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <form action="@Url.Action("Index", "Home")">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="name-input">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "", type = "name", placeholder = "Your Name" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="email-input">
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "", type = "email", placeholder = "Your Email" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="subject-input">
+                                        @Html.EditorFor(model => model.Subject, new { htmlAttributes = new { @class = "", type = "subject", placeholder = "Your Subject" } })
+                                        @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="message-input">
+                                @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "", name = "", id = "", cols = "30", rows = "10", placeholder = "Your Message" } })
+                                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="input-submit">
+                                <button type="submit">Submit Message</button>
+                            </div>
+                        </form>
+                        if (ViewBag.ErrorMessage != null)
+                        {
+                            <div class="alert alert-danger">
+                                @Html.Raw(ViewBag.ErrorMessage)
+                            </div>
+                        }
+                        if (ViewBag.Confirm != null)
+                        {
+                            <div class="alert alert-success">
+                                @Html.Raw(ViewBag.Confirm)
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Contact Page Area End ==-->
+<!--== Map Area Start ==-->
+<div class="maparea">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3098.879352724533!2d-94.5942216843224!3d39.0408701460788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87c0efb82d55bf5b%3A0x9efb79008e713aa0!2s401%20Nichols%20Rd%2C%20Kansas%20City%2C%20MO%2064112!5e0!3m2!1sen!2sus!4v1586975350518!5m2!1sen!2sus"></iframe>
+</div>
+<!--== Map Area End ==-->
+
+

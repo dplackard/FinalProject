@@ -1,41 +1,102 @@
 ﻿@model FinalProject.UI.MVC.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Create a new account";
 }
-
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+<section id="page-title-area" class="section-padding overlay" style="background-image: url(/Content/assets/img/page-title.jpg)">
+    <div class="container">
+        <div class="row">
+            <!-- Page Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>@ViewBag.Title</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>Welcome! Please create an account or sign-in to reserve a car.</p>
+                </div>
+            </div>
+            <!-- Page Title End -->
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+</section>
+<!--== Page Title Area End ==-->
+<!--== Login Page Content Start ==-->
+<section id="lgoin-page-wrap" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5 col-md-8 m-auto">
+                <div class="login-page-content">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="login-form">
+                            <h3>Sign Up</h3>
+                            <form action="@Url.Action("Index", "Home")">
+                                @Html.ValidationSummary("", new { @class = "text-danger" })
+                                <div class="name">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.FirstName, new { @class = "", placeholder = "First Name", type = "text" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.LastName, new { @class = "", placeholder = "Last Name", type = "text" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="username">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "", placeholder = "Email", type = "email" })
+                                </div>
+                                <div class="password">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "", placeholder = "Password", type = "password" })
+                                </div>
+                                <div class="password">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "", placeholder = "Confirm Password", type = "password" })
+                                </div>
+                                <div class="username">
+                                    @Html.TextBoxFor(m => m.Address, new { @class = "", placeholder = "Street Address", type = "text" })
+                                </div>
+                                <div class="name">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.City, new { @class = "", placeholder = "City", type = "text" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.State, new { @class = "", placeholder = "State", type = "text" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="name">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.ZipCode, new { @class = "", placeholder = "Zip Code", type = "text" })
+                                        </div>
+                                        <div class="col-md-6">
+                                            @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "", placeholder = "Phone Number", type = "text" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="log-btn">
+                                    <button type="submit"><i class="fa fa-check-square"></i> Sign Up</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="login-other">
+                            <span class="or">or</span>
+                            <a href="#" class="login-with-btn facebook"><i class="fa fa-facebook"></i> Signup With Facebook</a>
+                            <a href="#" class="login-with-btn google"><i class="fa fa-google"></i> Signup With Google</a>
+                        </div>
+                        <div class="create-ac">
+                            <p>Have an account? <a href="@Url.Action("Login", "Account")">Sign In</a></p>
+                        </div>
+                        <div class="login-menu">
+                            <a href="@Url.Action("About", "Home")">About</a>
+                            <span>|</span>
+                            <a href="@Url.Action("Index", "Contact")">Contact</a>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
-
+</section>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

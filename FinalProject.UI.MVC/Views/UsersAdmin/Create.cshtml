@@ -1,15 +1,27 @@
 ﻿@model FinalProject.UI.MVC.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Admin | Create New User";
 }
 
-<h2>@ViewBag.Title.</h2>
+<section id="page-title-area" class="section-padding overlay" style="background-image: url(/Content/assets/img/page-title.jpg)">
+    <div class="container">
+        <div class="row">
+            <!-- Page Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>@ViewBag.Title</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>Create a new user.</p>
+                </div>
+            </div>
+            <!-- Page Title End -->
+        </div>
+    </div>
+</section>
 
 @using (Html.BeginForm("Create", "UsersAdmin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
     @Html.ValidationSummary("", new { @class = "text-error" })
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })

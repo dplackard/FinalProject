@@ -1,19 +1,30 @@
 ﻿@model FinalProject.DATA.EF.Dealership
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit " + Model.DealershipName;
 }
 
-<h2>Edit</h2>
-
+<section id="page-title-area" class="section-padding overlay" style="background-image: url(/Content/assets/img/page-title.jpg)">
+    <div class="container">
+        <div class="row">
+            <!-- Page Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>@ViewBag.Title</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>Edit your Cardoor&copy; dealership information.</p>
+                </div>
+            </div>
+            <!-- Page Title End -->
+        </div>
+    </div>
+</section>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Dealership</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.DealershipId)
 
@@ -54,14 +65,6 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ZipCode, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CarId, "CarId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CarId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CarId, "", new { @class = "text-danger" })
             </div>
         </div>
 

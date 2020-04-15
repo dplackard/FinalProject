@@ -17,7 +17,6 @@ namespace FinalProject.DATA.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Car()
         {
-            this.Dealerships = new HashSet<Dealership>();
             this.Reservations = new HashSet<Reservation>();
         }
     
@@ -35,9 +34,9 @@ namespace FinalProject.DATA.EF
         public bool IsElectric { get; set; }
         public bool HasGPS { get; set; }
         public bool HasBluetooth { get; set; }
+        public string DealershipId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Dealership> Dealerships { get; set; }
+        public virtual Dealership Dealership { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservations { get; set; }
     }

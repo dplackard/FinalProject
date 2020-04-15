@@ -17,8 +17,7 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Dealerships
         public ActionResult Index()
         {
-            var dealerships = db.Dealerships.Include(d => d.Car);
-            return View(dealerships.ToList());
+            return View(db.Dealerships.ToList());
         }
 
         // GET: Dealerships/Details/5
@@ -39,7 +38,6 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Dealerships/Create
         public ActionResult Create()
         {
-            ViewBag.CarId = new SelectList(db.Cars, "CarId", "Make");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "DealershipId,DealershipName,Address,City,State,ZipCode,CarId,PhoneNumber")] Dealership dealership)
+        public ActionResult Create([Bind(Include = "DealershipId,DealershipName,Address,City,State,ZipCode,PhoneNumber")] Dealership dealership)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace FinalProject.UI.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CarId = new SelectList(db.Cars, "CarId", "Make", dealership.CarId);
             return View(dealership);
         }
 
@@ -73,7 +70,6 @@ namespace FinalProject.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CarId = new SelectList(db.Cars, "CarId", "Make", dealership.CarId);
             return View(dealership);
         }
 
@@ -82,7 +78,7 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "DealershipId,DealershipName,Address,City,State,ZipCode,CarId,PhoneNumber")] Dealership dealership)
+        public ActionResult Edit([Bind(Include = "DealershipId,DealershipName,Address,City,State,ZipCode,PhoneNumber")] Dealership dealership)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace FinalProject.UI.MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CarId = new SelectList(db.Cars, "CarId", "Make", dealership.CarId);
             return View(dealership);
         }
 

@@ -1628,7 +1628,8 @@ body,
 
 .book-ur-car select,
 .book-ur-car input,
-.book-ur-car button {
+.book-ur-car button,
+.book-ur-car a{
 	background-color: transparent;
 	border: none;
 	border-radius: 0;
@@ -1643,16 +1644,24 @@ body,
 
 .book-ur-car select:focus,
 .book-ur-car input:focus,
-.book-ur-car button:focus {
+.book-ur-car button:focus,
+.book-ur-car a:focus{
 	border-color: #fff;
 	background-color: transparent;
 }
 
-.bookcar-btn button {
+.bookcar-btn button{
 	padding: 7px;
 	cursor: pointer;
 	-webkit-transition: 0.4s;
 	transition: 0.4s;
+}
+
+.bookcar-btn a{
+    padding: 7px;
+    cursor: pointer;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
 }
 
 .bookcar-btn:hover {

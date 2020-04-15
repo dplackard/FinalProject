@@ -23,6 +23,7 @@
           <Property Name="IsElectric" Type="bit" Nullable="false" />
           <Property Name="HasGPS" Type="bit" Nullable="false" />
           <Property Name="HasBluetooth" Type="bit" Nullable="false" />
+          <Property Name="DealershipId" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="Dealership">
           <Key>
@@ -34,7 +35,6 @@
           <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="State" Type="varchar" MaxLength="2" Nullable="false" />
           <Property Name="ZipCode" Type="char" MaxLength="5" Nullable="false" />
-          <Property Name="CarId" Type="int" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
         </EntityType>
         <EntityType Name="Reservations">
@@ -59,15 +59,15 @@
           <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
           <Property Name="ZipCode" Type="char" MaxLength="5" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Dealership_Cars">
-          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
-          <End Role="Dealership" Type="Self.Dealership" Multiplicity="*" />
+        <Association Name="FK_Cars_Dealership">
+          <End Role="Dealership" Type="Self.Dealership" Multiplicity="0..1" />
+          <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Cars">
-              <PropertyRef Name="CarId" />
+            <Principal Role="Dealership">
+              <PropertyRef Name="DealershipId" />
             </Principal>
-            <Dependent Role="Dealership">
-              <PropertyRef Name="CarId" />
+            <Dependent Role="Cars">
+              <PropertyRef Name="DealershipId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -100,9 +100,9 @@
           <EntitySet Name="Dealership" EntityType="Self.Dealership" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Dealership_Cars" Association="Self.FK_Dealership_Cars">
-            <End Role="Cars" EntitySet="Cars" />
+          <AssociationSet Name="FK_Cars_Dealership" Association="Self.FK_Cars_Dealership">
             <End Role="Dealership" EntitySet="Dealership" />
+            <End Role="Cars" EntitySet="Cars" />
           </AssociationSet>
           <AssociationSet Name="FK_Reservations_Cars" Association="Self.FK_Reservations_Cars">
             <End Role="Cars" EntitySet="Cars" />
@@ -136,7 +136,8 @@
           <Property Name="IsElectric" Type="Boolean" Nullable="false" />
           <Property Name="HasGPS" Type="Boolean" Nullable="false" />
           <Property Name="HasBluetooth" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Dealerships" Relationship="Self.FK_Dealership_Cars" FromRole="Cars" ToRole="Dealership" />
+          <Property Name="DealershipId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dealership" Relationship="Self.FK_Cars_Dealership" FromRole="Cars" ToRole="Dealership" />
           <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservations_Cars" FromRole="Cars" ToRole="Reservations" />
         </EntityType>
         <EntityType Name="Dealership">
@@ -149,9 +150,8 @@
           <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="State" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ZipCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="CarId" Type="Int32" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Car" Relationship="Self.FK_Dealership_Cars" FromRole="Dealership" ToRole="Cars" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_Dealership" FromRole="Dealership" ToRole="Cars" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -178,15 +178,15 @@
           <Property Name="ZipCode" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Reservations" Relationship="Self.FK_Reservations_UserDetails" FromRole="UserDetails" ToRole="Reservations" />
         </EntityType>
-        <Association Name="FK_Dealership_Cars">
-          <End Role="Cars" Type="Self.Car" Multiplicity="1" />
-          <End Role="Dealership" Type="Self.Dealership" Multiplicity="*" />
+        <Association Name="FK_Cars_Dealership">
+          <End Role="Dealership" Type="Self.Dealership" Multiplicity="0..1" />
+          <End Role="Cars" Type="Self.Car" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Cars">
-              <PropertyRef Name="CarId" />
+            <Principal Role="Dealership">
+              <PropertyRef Name="DealershipId" />
             </Principal>
-            <Dependent Role="Dealership">
-              <PropertyRef Name="CarId" />
+            <Dependent Role="Cars">
+              <PropertyRef Name="DealershipId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -219,9 +219,9 @@
           <EntitySet Name="Dealerships" EntityType="Self.Dealership" />
           <EntitySet Name="Reservations" EntityType="Self.Reservation" />
           <EntitySet Name="UserDetails" EntityType="Self.UserDetail" />
-          <AssociationSet Name="FK_Dealership_Cars" Association="Self.FK_Dealership_Cars">
-            <End Role="Cars" EntitySet="Cars" />
+          <AssociationSet Name="FK_Cars_Dealership" Association="Self.FK_Cars_Dealership">
             <End Role="Dealership" EntitySet="Dealerships" />
+            <End Role="Cars" EntitySet="Cars" />
           </AssociationSet>
           <AssociationSet Name="FK_Reservations_Cars" Association="Self.FK_Reservations_Cars">
             <End Role="Cars" EntitySet="Cars" />
@@ -255,6 +255,7 @@
                 <ScalarProperty Name="IsElectric" ColumnName="IsElectric" />
                 <ScalarProperty Name="HasGPS" ColumnName="HasGPS" />
                 <ScalarProperty Name="HasBluetooth" ColumnName="HasBluetooth" />
+                <ScalarProperty Name="DealershipId" ColumnName="DealershipId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -267,7 +268,6 @@
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="CarId" ColumnName="CarId" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
               </MappingFragment>
             </EntityTypeMapping>

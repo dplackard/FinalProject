@@ -28,10 +28,10 @@
                 <div class="login-page-content">
                     @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                     {
+                        @Html.AntiForgeryToken()
                         <div class="login-form">
                             <h3>Welcome Back!</h3>
-                            <form action="index.html">
-                                @Html.AntiForgeryToken()
+                            <form action="@Url.Action("Index", "Home")">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="username">
                                     @Html.TextBoxFor(m => m.Email, new { @class = "", type = "text", placeholder = "Email" })
@@ -55,7 +55,7 @@
                             <p>Don't have an account? <a href="@Url.Action("Register", "Account")">Sign Up</a></p>
                         </div>
                         <div class="login-menu">
-                            <a href="@Url.Action("About", "Index")">About</a>
+                            <a href="@Url.Action("About", "Home")">About</a>
                             <span>|</span>
                             <a href="@Url.Action("Index", "Contact")">Contact</a>
                         </div>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using FinalProject.DATA.EF;
 
 namespace FinalProject.UI.MVC.Controllers
 {
@@ -153,6 +154,19 @@ namespace FinalProject.UI.MVC.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserDetail newUserDetail = new UserDetail();
+                    newUserDetail.UserId = user.Id;
+                    newUserDetail.FirstName = model.FirstName;
+                    newUserDetail.LastName = model.LastName;
+                    newUserDetail.Address = model.Address;
+                    newUserDetail.City = model.City;
+                    newUserDetail.State = model.State;
+                    newUserDetail.PhoneNumber = model.PhoneNumber;
+                    newUserDetail.ZipCode = model.ZipCode;
+
+                    FinalProjectEntities db = new FinalProjectEntities();
+                    db.UserDetails.Add(newUserDetail);
+                    db.SaveChanges();
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking this link: <a href=\"" + callbackUrl + "\">link</a>");

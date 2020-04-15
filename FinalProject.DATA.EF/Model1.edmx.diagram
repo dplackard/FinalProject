@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="25a761d1285a46d2b0bf73ad711e3455" Name="Diagram1">
-        <EntityTypeShape EntityType="FinalProjectModel.Car" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinalProjectModel.Dealership" Width="1.5" PointX="3" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinalProjectModel.Reservation" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="FinalProjectModel.UserDetail" Width="1.5" PointX="3.75" PointY="7.625" IsExpanded="true" />
-        <AssociationConnector Association="FinalProjectModel.FK_Dealership_Cars" ManuallyRouted="false" />
+      <Diagram DiagramId="ee05b9b861494e78883525c217cb2d82" Name="Diagram1">
+        <EntityTypeShape EntityType="FinalProjectModel.Car" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalProjectModel.Dealership" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalProjectModel.Reservation" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FinalProjectModel.UserDetail" Width="1.5" PointX="3" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="FinalProjectModel.FK_Cars_Dealership" ManuallyRouted="false" />
         <AssociationConnector Association="FinalProjectModel.FK_Reservations_Cars" ManuallyRouted="false" />
         <AssociationConnector Association="FinalProjectModel.FK_Reservations_UserDetails" ManuallyRouted="false" />
       </Diagram>

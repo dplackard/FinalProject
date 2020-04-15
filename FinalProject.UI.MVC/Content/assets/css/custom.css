@@ -5,3 +5,26 @@
 li.userName {
     color: #ffd000 !important;
 }
+
+a.customAnchor{
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+}
+
+div.bookcar-btn.bookinput-item {
+    min-height: 42.8px;
+    padding-top: 6px;
+}
+
+    div.bookcar-btn.bookinput-item a {
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        text-align: center;
+        text-transform: uppercase;
+        width: 100%;
+        display: block;
+    }

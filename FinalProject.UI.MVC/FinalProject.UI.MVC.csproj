@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CarsController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DealershipsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -181,6 +182,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AdminViewModel.cs" />
+    <Compile Include="Models\ContactViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -208,11 +210,12 @@
     <Content Include="Content\assets\img\banner.jpg" />
     <Content Include="Content\assets\img\caret-cion.png" />
     <Content Include="Content\assets\img\car\car-1.jpg" />
-    <Content Include="Content\assets\img\car\car-2.jpg" />
+    <Content Include="Content\assets\img\car\bmwi8.jpg" />
     <Content Include="Content\assets\img\car\car-3.jpg" />
     <Content Include="Content\assets\img\car\car-4.jpg" />
     <Content Include="Content\assets\img\car\car-5.jpg" />
     <Content Include="Content\assets\img\car\car-6.jpg" />
+    <Content Include="Content\assets\img\car\ferrari488pista.jpg" />
     <Content Include="Content\assets\img\client\client-pic-1.jpg" />
     <Content Include="Content\assets\img\client\client-pic-2.jpg" />
     <Content Include="Content\assets\img\client\client-pic-3.jpg" />
@@ -303,6 +306,7 @@
     <Content Include="_archive\cardoor\assets\img\car\car-4.jpg" />
     <Content Include="_archive\cardoor\assets\img\car\car-5.jpg" />
     <Content Include="_archive\cardoor\assets\img\car\car-6.jpg" />
+    <Content Include="_archive\cardoor\assets\img\car\ferrari488pista.jpg" />
     <Content Include="_archive\cardoor\assets\img\client\client-pic-1.jpg" />
     <Content Include="_archive\cardoor\assets\img\client\client-pic-2.jpg" />
     <Content Include="_archive\cardoor\assets\img\client\client-pic-3.jpg" />
@@ -407,7 +411,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -464,9 +467,12 @@
     <Content Include="Views\UserDetails\Details.cshtml" />
     <Content Include="Views\UserDetails\Edit.cshtml" />
     <Content Include="Views\UserDetails\Index.cshtml" />
+    <Content Include="Views\Contact\EmailConfirmation.cshtml" />
+    <Content Include="Views\Contact\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ContactViewModel\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

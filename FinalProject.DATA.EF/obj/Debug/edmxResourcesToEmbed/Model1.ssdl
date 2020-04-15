@@ -18,6 +18,7 @@
     <Property Name="IsElectric" Type="bit" Nullable="false" />
     <Property Name="HasGPS" Type="bit" Nullable="false" />
     <Property Name="HasBluetooth" Type="bit" Nullable="false" />
+    <Property Name="DealershipId" Type="nvarchar" MaxLength="128" />
   </EntityType>
   <EntityType Name="Dealership">
     <Key>
@@ -29,7 +30,6 @@
     <Property Name="City" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="State" Type="varchar" MaxLength="2" Nullable="false" />
     <Property Name="ZipCode" Type="char" MaxLength="5" Nullable="false" />
-    <Property Name="CarId" Type="int" Nullable="false" />
     <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
   </EntityType>
   <EntityType Name="Reservations">
@@ -54,15 +54,15 @@
     <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
     <Property Name="ZipCode" Type="char" MaxLength="5" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Dealership_Cars">
-    <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
-    <End Role="Dealership" Type="Self.Dealership" Multiplicity="*" />
+  <Association Name="FK_Cars_Dealership">
+    <End Role="Dealership" Type="Self.Dealership" Multiplicity="0..1" />
+    <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Cars">
-        <PropertyRef Name="CarId" />
+      <Principal Role="Dealership">
+        <PropertyRef Name="DealershipId" />
       </Principal>
-      <Dependent Role="Dealership">
-        <PropertyRef Name="CarId" />
+      <Dependent Role="Cars">
+        <PropertyRef Name="DealershipId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -95,9 +95,9 @@
     <EntitySet Name="Dealership" EntityType="Self.Dealership" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reservations" EntityType="Self.Reservations" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserDetails" EntityType="Self.UserDetails" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Dealership_Cars" Association="Self.FK_Dealership_Cars">
-      <End Role="Cars" EntitySet="Cars" />
+    <AssociationSet Name="FK_Cars_Dealership" Association="Self.FK_Cars_Dealership">
       <End Role="Dealership" EntitySet="Dealership" />
+      <End Role="Cars" EntitySet="Cars" />
     </AssociationSet>
     <AssociationSet Name="FK_Reservations_Cars" Association="Self.FK_Reservations_Cars">
       <End Role="Cars" EntitySet="Cars" />

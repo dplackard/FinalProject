@@ -1,4 +1,6 @@
-﻿    <!--== SlideshowBg Area Start ==-->
+﻿@model IEnumerable<FinalProject.DATA.EF.Car>
+@using FinalProject.DATA.EF;
+<!--== SlideshowBg Area Start ==-->
 <section id="slideslow-bg">
     <div class="container">
         <div class="row">
@@ -6,8 +8,8 @@
                 <div class="slideshowcontent">
                     <div class="display-table">
                         <div class="display-table-cell">
-                            <h1>BOOK A CAR TODAY!</h1>
-                            <p>FOR AS LOW AS $10 A DAY PLUS 15% DISCOUNT <br> FOR OUR RETURNING CUSTOMERS</p>
+                            <h1>RESERVE A CAR TODAY!</h1>
+                            <p>FOR AS LOW AS $50 A DAY PLUS 15% DISCOUNT <br> FOR OUR RETURNING CUSTOMERS</p>
 
                             <div class="book-ur-car">
                                 <form action="index2.html">
@@ -39,7 +41,7 @@
                                     </div>
 
                                     <div class="bookcar-btn bookinput-item">
-                                        <button type="submit">Book Car</button>
+                                        <a class="customAnchor" href="/Cars/Index">Cars Available</a>
                                     </div>
                                 </form>
                             </div>
@@ -267,7 +269,7 @@
 </section>
 <!--== Services Area End ==-->
 <!--== Fun Fact Area Start ==-->
-<section id="funfact-area" class="overlay section-padding">
+<section id="funfact-area" class="overlay section-padding" style="background-image: url(/Content/assets/img/funfact-bg.jpg)">
     <div class="container">
         <div class="row">
             <div class="col-lg-11 col-md-12 m-auto">
@@ -280,7 +282,7 @@
                                     <i class="fa fa-smile-o"></i>
                                 </div>
                                 <div class="funfact-content">
-                                    <p><span class="counter">550</span>+</p>
+                                    <p><span class="counter">500</span>+</p>
                                     <h4>HAPPY CLIENTS</h4>
                                 </div>
                             </div>
@@ -293,7 +295,7 @@
                                     <i class="fa fa-car"></i>
                                 </div>
                                 <div class="funfact-content">
-                                    <p><span class="counter">250</span>+</p>
+                                    <p><span class="counter">2</span>+</p>
                                     <h4>CARS IN STOCK</h4>
                                 </div>
                             </div>

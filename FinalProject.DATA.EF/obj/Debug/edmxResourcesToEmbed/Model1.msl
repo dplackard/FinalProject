@@ -18,6 +18,7 @@
           <ScalarProperty Name="IsElectric" ColumnName="IsElectric" />
           <ScalarProperty Name="HasGPS" ColumnName="HasGPS" />
           <ScalarProperty Name="HasBluetooth" ColumnName="HasBluetooth" />
+          <ScalarProperty Name="DealershipId" ColumnName="DealershipId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -30,7 +31,6 @@
           <ScalarProperty Name="City" ColumnName="City" />
           <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-          <ScalarProperty Name="CarId" ColumnName="CarId" />
           <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
         </MappingFragment>
       </EntityTypeMapping>

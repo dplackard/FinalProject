@@ -14,15 +14,21 @@ namespace FinalProject.DATA.EF
     
     public partial class Dealership
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Dealership()
+        {
+            this.Cars = new HashSet<Car>();
+        }
+    
         public string DealershipId { get; set; }
         public string DealershipName { get; set; }
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        public int CarId { get; set; }
         public string PhoneNumber { get; set; }
     
-        public virtual Car Car { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Car> Cars { get; set; }
     }
 }

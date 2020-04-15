@@ -17,7 +17,8 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Cars
         public ActionResult Index()
         {
-            return View(db.Cars.ToList());
+            var cars = db.Cars.Include(c => c.Dealership);
+            return View(cars.ToList());
         }
 
         // GET: Cars/Details/5
@@ -38,6 +39,7 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Cars/Create
         public ActionResult Create()
         {
+            ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName");
             return View();
         }
 
@@ -46,7 +48,7 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth")] Car car)
+        public ActionResult Create([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth,DealershipId")] Car car)
         {
             if (ModelState.IsValid)
             {
@@ -55,6 +57,7 @@ namespace FinalProject.UI.MVC.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName", car.DealershipId);
             return View(car);
         }
 
@@ -70,6 +73,7 @@ namespace FinalProject.UI.MVC.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName", car.DealershipId);
             return View(car);
         }
 
@@ -78,7 +82,7 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth")] Car car)
+        public ActionResult Edit([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth,DealershipId")] Car car)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +90,7 @@ namespace FinalProject.UI.MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName", car.DealershipId);
             return View(car);
         }
 
