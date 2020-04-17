@@ -163,8 +163,8 @@ namespace FinalProject.UI.MVC.Controllers
                     newUserDetail.State = model.State;
                     newUserDetail.PhoneNumber = model.PhoneNumber;
                     newUserDetail.ZipCode = model.ZipCode;
-
                     FinalProjectEntities db = new FinalProjectEntities();
+                    UserManager.AddToRole(user.Id, "Customer");
                     db.UserDetails.Add(newUserDetail);
                     db.SaveChanges();
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -418,6 +418,14 @@ namespace FinalProject.UI.MVC.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult AddUserToDealer()
+        {
+            string test = User.Identity.GetUserId();
+            var result = UserManager.AddToRole(test, "Dealer");
+            AuthenticationManager.SignOut();
+            return RedirectToAction("Login", "Account");
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

@@ -50,17 +50,41 @@ namespace FinalProject.UI.MVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Dealer, Admin")]
-        public ActionResult Create([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth,DealershipId")] Car car)
+        public ActionResult Create([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth,DealershipId")] Car car, HttpPostedFileBase fupThisImage)
         {
+            #region FileUpload Create
+            string imageName = "noImage.png";
             if (ModelState.IsValid)
             {
-                db.Cars.Add(car);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (fupThisImage != null)
+                {
+                    imageName = fupThisImage.FileName;
+                    string extension = imageName.Substring(imageName.LastIndexOf("."));
+                    string[] goodExtensions = new string[] { ".jpg", ".jfif", ".png", ".jpeg", ".gif" };
+                    if (goodExtensions.Contains(extension.ToLower()))
+                    {
+                        imageName = Guid.NewGuid().ToString() + extension;
+                        fupThisImage.SaveAs(Server.MapPath("~/Content/assets/img/car/" + imageName));
+                    }
+                    else
+                    {
+                        ViewBag.Alert = "There was an error creating a new car for rent.";
+                        ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName", car.DealershipId);
+                        return View(car);
+                    }
+                }
             }
-
+            else
+            {
+                ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName", car.DealershipId);
+                return View(car);
+            }
+            car.CarPhoto = imageName;
+            #endregion
+            db.Cars.Add(car);
+            db.SaveChanges();
             ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName", car.DealershipId);
-            return View(car);
+            return RedirectToAction("Index");
         }
 
         // GET: Cars/Edit/5
@@ -86,10 +110,34 @@ namespace FinalProject.UI.MVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Dealer, Admin")]
-        public ActionResult Edit([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth,DealershipId")] Car car)
+        public ActionResult Edit([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth,DealershipId")] Car car, HttpPostedFileBase fupThisImage)
         {
             if (ModelState.IsValid)
             {
+                #region FileUpload Edit
+                if (fupThisImage != null)
+                {
+                    string imageName = fupThisImage.FileName;
+                    string extension = imageName.Substring(imageName.LastIndexOf("."));
+                    string[] goodExtensions = new string[] { ".jpg", ".jfif", ".png", ".jpeg", ".gif" };
+                    if (goodExtensions.Contains(extension.ToLower()))
+                    {
+                        imageName = Guid.NewGuid().ToString() + extension;
+                        fupThisImage.SaveAs(Server.MapPath("~/Content/assets/img/car/" + imageName));
+                        if (car.CarPhoto != null && car.CarPhoto != "noImage.png")
+                        {
+                            System.IO.File.Delete(Server.MapPath("~/Content/assets/img/car/" + car.CarPhoto));
+                        }
+                        car.CarPhoto = imageName;
+                    }
+                    else
+                    {
+                        ViewBag.Alert = "It went wrong bruh";
+                        ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName", car.DealershipId);
+                        return View(car);
+                    }
+                }
+                #endregion
                 db.Entry(car).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

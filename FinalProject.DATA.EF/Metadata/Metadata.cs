@@ -21,7 +21,6 @@ namespace FinalProject.DATA.EF
         [Required(ErrorMessage = "*Color is REQUIRED")]
         [StringLength(20, ErrorMessage = "*Color must be 20 characters or less")]
         public string Color { get; set; }
-        [Required(ErrorMessage = "*Car Pictures are REQUIRED")]
         [StringLength(50, ErrorMessage = "*Car pictures must be 50 characters or less")]
         public string CarPhoto { get; set; }
         [Required(ErrorMessage = "*Description is REQUIRED")]
@@ -30,17 +29,11 @@ namespace FinalProject.DATA.EF
         [Required(ErrorMessage = "*Price Per Day is REQUIRED")]
         [DisplayFormat(DataFormatString = "{0:c}", ApplyFormatInEditMode = false)]
         public decimal PricePerDay { get; set; }
-        [Required(ErrorMessage = "*Currently Available must be checked or unchecked")]
         public bool IsBooked { get; set; }
-        [Required(ErrorMessage = "*Transmission type must must be checked or unchecked")]
         public bool IsAutomatic { get; set; }
-        [Required(ErrorMessage = "*Fuel type must be checked or unchecked")]
         public bool IsDiesel { get; set; }
-        [Required(ErrorMessage = "*Electric vehicles must be checked or unchecked")]
         public bool IsElectric { get; set; }
-        [Required(ErrorMessage = "*Built-in GPS must be checked or unchecked")]
         public bool HasGPS { get; set; }
-        [Required(ErrorMessage = "*Built-in bluetooth must be checked or unchecked")]
         public bool HasBluetooth { get; set; }
     }
     [MetadataType(typeof(CarMetadata))]
