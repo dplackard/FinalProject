@@ -10,6 +10,7 @@ using FinalProject.DATA.EF;
 
 namespace FinalProject.UI.MVC.Controllers
 {
+    [Authorize(Roles = "Customer, Dealer, Admin")]
     public class ReservationsController : Controller
     {
         private FinalProjectEntities db = new FinalProjectEntities();
@@ -39,7 +40,7 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Reservations/Create
         public ActionResult Create()
         {
-            ViewBag.CarId = new SelectList(db.Cars, "CarId", "Make");
+            ViewBag.CarId = new SelectList(db.Cars, "CarId", "CarSelection");
             ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "FirstName");
             return View();
         }

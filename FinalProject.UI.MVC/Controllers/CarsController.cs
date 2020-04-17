@@ -37,6 +37,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: Cars/Create
+        [Authorize(Roles = "Dealer, Admin")]
         public ActionResult Create()
         {
             ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName");
@@ -48,6 +49,7 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Dealer, Admin")]
         public ActionResult Create([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth,DealershipId")] Car car)
         {
             if (ModelState.IsValid)
@@ -62,6 +64,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: Cars/Edit/5
+        [Authorize(Roles = "Dealer, Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -82,6 +85,7 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Dealer, Admin")]
         public ActionResult Edit([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth,DealershipId")] Car car)
         {
             if (ModelState.IsValid)
@@ -95,6 +99,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: Cars/Delete/5
+        [Authorize(Roles = "Dealer, Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -112,6 +117,7 @@ namespace FinalProject.UI.MVC.Controllers
         // POST: Cars/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Dealer, Admin")]
         public ActionResult DeleteConfirmed(int id)
         {
             Car car = db.Cars.Find(id);

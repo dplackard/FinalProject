@@ -28,3 +28,13 @@ div.bookcar-btn.bookinput-item {
         width: 100%;
         display: block;
     }
+
+section.styleresetCar
+{
+    padding-bottom: 0px !important;
+}
+
+section.styleresetCarDetails
+{
+    padding-top: 1px !important;
+}

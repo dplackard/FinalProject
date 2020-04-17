@@ -1,122 +1,128 @@
 ﻿@model FinalProject.DATA.EF.Car
 
 @{
+    /**/
+
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<!--== Page Title Area Start ==-->
+<section id="page-title-area" class="section-padding overlay" style="background-image: url(/Content/assets/img/page-title.jpg)">
+    <div class="container">
+        <div class="row">
+            <!-- Page Title Start -->
+            <div class="col-lg-12">
+                <div class="section-title  text-center">
+                    <h2>Our Cars</h2>
+                    <span class="title-line"><i class="fa fa-car"></i></span>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div>
+            </div>
+            <!-- Page Title End -->
+        </div>
+    </div>
+</section>
+<!--== Page Title Area End ==-->
+@if (Model.IsBooked == true)
+{
+    <section id="tips-article-area" class="section-padding styleresetCar">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title Start -->
+                <div class="col-lg-12">
+                    <div class="section-title  text-center">
+                        <h2>Sorry, this car is currently booked!</h2>
+                        <span class="title-line"><i class="fa fa-car"></i></span>
+                        <p>Please check back later to see if this car is available for reservation again, or contact Cardoor&copy;</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<!--== Car List Area Start ==-->
+<section id="car-list-area" class="section-padding styleresetCarDetails">
+    <div class="container">
+        <div class="row">
+            <!-- Car List Content Start -->
+            <div class="col-lg-8">
+                <div class="car-details-content">
+                    <h2>@Html.DisplayFor(model => model.Year) @Html.DisplayFor(model => model.Make) @Html.DisplayFor(model => model.Model)<span class="price">Rent: @Html.DisplayFor(model => model.PricePerDay)<b></b></span></h2>
+                    <div>
+                        <div>
+                            <img src="~/Content/assets/img/car/@Model.CarPhoto" alt="@Model.Description">
+                        </div>
+                    </div>
+                    <div class="car-details-info">
+                        <h4>Description</h4>
+                        <p>@Html.DisplayFor(model => model.Description)</p>
 
-<div>
-    <h4>Car</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Make)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Make)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Color)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Color)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CarPhoto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CarPhoto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PricePerDay)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PricePerDay)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsBooked)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsBooked)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsAutomatic)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsAutomatic)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDiesel)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDiesel)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsElectric)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsElectric)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HasGPS)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HasGPS)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HasBluetooth)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HasBluetooth)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CarId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                        <div class="technical-info">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="tech-info-table">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <th>Color</th>
+                                                <td>@Html.DisplayFor(model => model.Color)</td>
+                                            </tr>
+                                            <tr>
+                                                <th>Fuel</th>
+                                                <td>Petrol</td>
+                                            </tr>
+                                            <tr>
+                                                <th>GearBox</th>
+                                                <td>Automatic</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="tech-info-list">
+                                        <ul>
+                                            @if (Model.HasBluetooth == true)
+                                            {
+                                                <li>@Html.Raw("Bluetooth")</li>
+                                            }
+                                            @if (Model.IsDiesel == true)
+                                            {
+                                                <li>@Html.Raw("Diesel")</li>
+                                            }
+                                            @if (Model.HasGPS == true)
+                                            {
+                                                <li>@Html.Raw("GPS")</li>
+                                            }
+                                            @if (Model.IsElectric == true)
+                                            {
+                                                <li>@Html.Raw("Electric")</li>
+                                            }
+                                            @if (Model.IsAutomatic == true)
+                                            {
+                                                <li>@Html.Raw("Automatic")</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a href="/Cars/Edit/@Model.CarId" class="rent-btn">Edit Car</a>
+                                    }
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a href="/Cars/Delete/@Model.CarId" class="rent-btn">Delete Car</a>
+                                    }
+                                    @if (Model.IsBooked == false)
+                                    {
+                                        <a href="#" class="rent-btn">Reserve It</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--== Car List Area End ==-->

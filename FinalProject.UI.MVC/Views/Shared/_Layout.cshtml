@@ -102,15 +102,20 @@
                                 <a href="@Url.Action("Index", "Home")">Home</a>
                             </li>
                             <li><a href="@Url.Action("About", "Home")">About</a></li>
-                            <li><a href="services.html">services</a></li>
                             <li>
                                 <a href="@Url.Action("Index","Cars")">Cars</a>
                             </li>
-                            <li>
-                                <a href="index.html">Pages</a>
-                            </li>
+                            @if (User.IsInRole("Admin") || User.IsInRole("Dealer") || User.IsInRole("Customer"))
+                            {
+                                <li><a href="@Url.Action("Index", "Reservations")">Reservations</a></li>
+                            }
+                            @if (User.IsInRole("Admin") || User.IsInRole("Dealer"))
+                            {
+                                <li><a href="@Url.Action("Index", "Dealerships")">Dealers</a></li>
+                            }
                             <li><a href="@Url.Action("Index", "Contact")">Contact</a></li>
                             <li>@Html.Partial("_LoginPartial")</li>
+
                         </ul>
                     </nav>
                 </div>

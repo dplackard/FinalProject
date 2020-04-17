@@ -21,6 +21,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: UserDetails/Details/5
+        [Authorize(Roles = "Customer, Dealer, Admin")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -59,6 +60,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: UserDetails/Edit/5
+        [Authorize(Roles = "Customer, Dealer, Admin")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -78,6 +80,7 @@ namespace FinalProject.UI.MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Customer, Dealer, Admin")]
         public ActionResult Edit([Bind(Include = "UserId,FirstName,LastName,PhoneNumber,Address,City,State,ZipCode")] UserDetail userDetail)
         {
             if (ModelState.IsValid)
@@ -90,6 +93,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // GET: UserDetails/Delete/5
+        [Authorize(Roles = "Customer, Dealer, Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -105,6 +109,7 @@ namespace FinalProject.UI.MVC.Controllers
         }
 
         // POST: UserDetails/Delete/5
+        [Authorize(Roles = "Customer, Dealer, Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

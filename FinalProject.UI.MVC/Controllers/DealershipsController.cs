@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.UI.MVC.Controllers
 {
+    [Authorize(Roles = "Dealer, Admin")]
     public class DealershipsController : Controller
     {
         private FinalProjectEntities db = new FinalProjectEntities();
@@ -50,6 +52,7 @@ namespace FinalProject.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
+                dealership.DealershipId = User.Identity.GetUserId();
                 db.Dealerships.Add(dealership);
                 db.SaveChanges();
                 return RedirectToAction("Index");

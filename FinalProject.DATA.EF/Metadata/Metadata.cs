@@ -46,7 +46,11 @@ namespace FinalProject.DATA.EF
     [MetadataType(typeof(CarMetadata))]
     public partial class Car
     {
-
+        [Display(Name = "Car Selection")]
+        public string CarSelection
+        { 
+            get { return Year + " " + Make + " " + Model + " " + "(" + Color + ")"; }
+        }
     }
     #endregion
     #region DealershipMetadata
