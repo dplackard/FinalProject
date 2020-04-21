@@ -28,6 +28,8 @@
     <div class="form-horizontal">
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.CarId)
+    @Html.HiddenFor(model => model.CarPhoto)
+    <!-- Carries the value through from waht is already stored -->
 
     <div class="form-group">
         @Html.LabelFor(model => model.Make, htmlAttributes: new { @class = "control-label col-md-2" })

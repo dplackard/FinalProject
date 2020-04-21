@@ -53,7 +53,7 @@ namespace FinalProject.UI.MVC.Controllers
         public ActionResult Create([Bind(Include = "CarId,Make,Year,Model,Color,CarPhoto,Description,PricePerDay,IsBooked,IsAutomatic,IsDiesel,IsElectric,HasGPS,HasBluetooth,DealershipId")] Car car, HttpPostedFileBase fupThisImage)
         {
             #region FileUpload Create
-            string imageName = "noImage.png";
+            string imageName = "noImage.jpg";
             if (ModelState.IsValid)
             {
                 if (fupThisImage != null)
@@ -124,7 +124,7 @@ namespace FinalProject.UI.MVC.Controllers
                     {
                         imageName = Guid.NewGuid().ToString() + extension;
                         fupThisImage.SaveAs(Server.MapPath("~/Content/assets/img/car/" + imageName));
-                        if (car.CarPhoto != null && car.CarPhoto != "noImage.png")
+                        if (car.CarPhoto != null && car.CarPhoto != "noImage.jpg")
                         {
                             System.IO.File.Delete(Server.MapPath("~/Content/assets/img/car/" + car.CarPhoto));
                         }
@@ -132,7 +132,7 @@ namespace FinalProject.UI.MVC.Controllers
                     }
                     else
                     {
-                        ViewBag.Alert = "It went wrong bruh";
+                        ViewBag.Alert = "Something went wrong. Please try again later";
                         ViewBag.DealershipId = new SelectList(db.Dealerships, "DealershipId", "DealershipName", car.DealershipId);
                         return View(car);
                     }

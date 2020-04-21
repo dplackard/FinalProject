@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using FinalProject.DATA.EF;
+using Microsoft.AspNet.Identity;
 
 namespace FinalProject.UI.MVC.Controllers
 {
@@ -18,7 +19,16 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
-            var reservations = db.Reservations.Include(r => r.Car).Include(r => r.UserDetail);
+            string userId = User.Identity.GetUserId();
+            var reservations = db.Reservations.Where(p => p.UserId == userId);
+            if (User.IsInRole("Admin"))
+            {
+                reservations = db.Reservations;
+            }
+            else if (User.IsInRole("Dealer"))
+            {
+                reservations = db.Reservations.Where(p => p.Car.DealershipId == userId);
+            }
             return View(reservations.ToList());
         }
 
@@ -40,8 +50,21 @@ namespace FinalProject.UI.MVC.Controllers
         // GET: Reservations/Create
         public ActionResult Create()
         {
-            ViewBag.CarId = new SelectList(db.Cars, "CarId", "CarSelection");
-            ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "FirstName");
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.CarId = new SelectList(db.Cars, "CarId", "CarSelection");
+                ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "FirstName");
+            }
+            else if (User.IsInRole("Dealer"))
+            {
+                ViewBag.CarId = new SelectList(db.Cars, "CarId", "CarSelection");
+                ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "FirstName");
+            }
+            else if (User.IsInRole("Customer"))
+            {
+                ViewBag.CarId = new SelectList(db.Cars.Where(p => p.IsBooked == false), "CarId", "CarSelection");
+                ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "FirstName");
+            }
             return View();
         }
 
@@ -54,12 +77,48 @@ namespace FinalProject.UI.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Reservations.Add(reservation);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (User.IsInRole("Admin"))
+                {
+                    reservation.ReservationDate = DateTime.Now;
+                    Car carsAdmin = db.Cars.Where(p => p.CarId == reservation.CarId).Single();
+                    carsAdmin.IsBooked = true;
+                    db.Entry(carsAdmin).State = EntityState.Modified;
+                    db.Reservations.Add(reservation);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                if (User.IsInRole("Dealer"))
+                {
+                    reservation.ReservationDate = DateTime.Now;
+                    Car carsDealer = db.Cars.Where(p => p.CarId == reservation.CarId).Single();
+                    carsDealer.IsBooked = true;
+                    db.Entry(carsDealer).State = EntityState.Modified;
+                    db.Reservations.Add(reservation);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                if (User.IsInRole("Customer"))
+                {
+                    reservation.ReservationDate = DateTime.Now;
+                    reservation.UserId = User.Identity.GetUserId();
+                    Car car = db.Cars.Where(p => p.CarId == reservation.CarId).Single();
+                    car.IsBooked = true;
+                    db.Entry(car).State = EntityState.Modified;
+                    db.Reservations.Add(reservation);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
 
-            ViewBag.CarId = new SelectList(db.Cars, "CarId", "Make", reservation.CarId);
+            ViewBag.CarId = new SelectList(db.Cars.Where(p => p.IsBooked == false), "CarId", "Make", reservation.CarId);
+            if (User.IsInRole("Dealer"))
+            {
+                ViewBag.CarId = new SelectList(db.Cars.Where(p => p.DealershipId == User.Identity.GetUserId()), "CarId", "Make", reservation.CarId);
+            }
+            if (User.IsInRole("Admin"))
+            {
+                ViewBag.CarId = new SelectList(db.Cars, "CarId", "Make", reservation.CarId);
+            }
             ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "FirstName", reservation.UserId);
             return View(reservation);
         }
@@ -94,7 +153,7 @@ namespace FinalProject.UI.MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CarId = new SelectList(db.Cars, "CarId", "Make", reservation.CarId);
+            ViewBag.CarId = new SelectList(db.Cars, "CarId", "Make", reservation.CarId);//Trying to only allow people to edit the one that they own .Where(p => p.IsBooked == true && p.Reservations.UserId
             ViewBag.UserId = new SelectList(db.UserDetails, "UserId", "FirstName", reservation.UserId);
             return View(reservation);
         }
@@ -120,6 +179,9 @@ namespace FinalProject.UI.MVC.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Reservation reservation = db.Reservations.Find(id);
+            Car car = db.Cars.Where(p => p.CarId == reservation.CarId).Single();
+            car.IsBooked = false;
+            db.Entry(car).State = EntityState.Modified;
             db.Reservations.Remove(reservation);
             db.SaveChanges();
             return RedirectToAction("Index");

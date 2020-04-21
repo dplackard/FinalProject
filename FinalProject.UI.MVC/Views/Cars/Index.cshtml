@@ -1,4 +1,11 @@
 ﻿@model IEnumerable<FinalProject.DATA.EF.Car>
+@using System.Web;
+@using System.Web.Mvc;
+@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
+@using Microsoft.Owin.Security;
+@using System.Linq;
+@using System.Threading.Tasks;
 
 @{
     /**/
@@ -36,7 +43,7 @@
                                 <div class="single-car-wrap">
                                     <div class="car-list-thumb car-thumb-1" style="background-image: url(/Content/assets/img/car/@item.CarPhoto)"></div>
                                     <div class="car-list-info without-bar">
-                                        <h2><a href="#">@Html.DisplayFor(modelItem => item.Year) @Html.DisplayFor(modelItem => item.Make) @Html.DisplayFor(modelItem => item.Model)</a></h2>
+                                        <h2><a href="/Cars/Details/@item.CarId">@Html.DisplayFor(modelItem => item.Year) @Html.DisplayFor(modelItem => item.Make) @Html.DisplayFor(modelItem => item.Model)</a></h2>
                                         <h5>@Html.DisplayFor(modelItem => item.PricePerDay) /day</h5>
                                         <p>@Html.DisplayFor(modelItem => item.Description)</p>
                                         <ul class="car-info-list">
@@ -68,16 +75,16 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
                                         </p>
-                                        @if (item.IsBooked == false && !User.IsInRole("Admin"))
+                                        @if (item.IsBooked == false && item.DealershipId != User.Identity.GetUserId())
                                         {
-                                            <a href="#" class="rent-btn">Reserve It</a>
+                                            <a href="/Reservations/Create" class="rent-btn">Reserve It</a>
                                         }
                                         <a href="/Cars/Details/@item.CarId" class="rent-btn">Car Details</a>
-                                        @if (User.IsInRole("Admin"))
+                                        @if (item.DealershipId == User.Identity.GetUserId() || User.IsInRole("Admin"))
                                         {
                                             <a href="/Cars/Delete/@item.CarId" class="rent-btn">Delete Car</a>
                                         }
-                                        @if (User.IsInRole("Admin"))
+                                        @if (item.DealershipId == User.Identity.GetUserId() || User.IsInRole("Admin"))
                                         {
                                             <a href="/Cars/Edit/@item.CarId" class="rent-btn">Edit Car</a>
                                         }
@@ -90,7 +97,8 @@
             </div>
         </div>
     </div>
+    @if (User.IsInRole("Dealer") || User.IsInRole("Admin"))
+    {
+        <a href="/Cars/Create" class="rent-btn customCreateListing" style="text-align: center;">Create New Listing</a>
+    }
 </section>
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>

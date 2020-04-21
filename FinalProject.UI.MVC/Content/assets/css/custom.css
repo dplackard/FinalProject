@@ -38,3 +38,10 @@ section.styleresetCarDetails
 {
     padding-top: 1px !important;
 }
+
+.customCreateListing {
+    text-align: center;
+    margin: auto;
+    width: 15%;
+    display: block;
+}

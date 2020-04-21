@@ -110,9 +110,7 @@ namespace FinalProject.DATA.EF
     {
         [Required(ErrorMessage = "*CarID is REQUIRED")]
         public int CarId { get; set; }
-        [Required(ErrorMessage = "*UserID is REQUIRED")]
         public string UserId { get; set; }
-        [Required(ErrorMessage = "*Reservation Date is REQUIRED")]
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = false)]
         public System.DateTime ReservationDate { get; set; }
     }
